@@ -1,0 +1,5 @@
+# configs/common.yaml
+seed: 1337
+data_dir: ${env:DATA_DIR, ./data}
+models_dir: ${env:MODELS_DIR, ./models}
+results_dir: ${env:RESULTS_DIR, ./results}
