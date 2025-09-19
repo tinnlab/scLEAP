@@ -11,7 +11,7 @@ abstract
 
 * **Train a new cell type annotation model** 
 * **zezo-shot cell annotation using pretrained model** 
-* **reproducibility of the manuscrip** 
+* **reproducibility of all results in the manuscript** 
 
 ---
 
