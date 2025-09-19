@@ -1,4 +1,4 @@
-name: sclmct
+name: scLMCT
 channels:
   - pytorch
   - nvidia
@@ -245,4 +245,4 @@ dependencies:
       - umap-learn==0.5.9.post2
       - yarl==1.20.1
       - zarr==3.1.1
-prefix: /home/dungp/miniconda3/envs/sclmct
+prefix: /home/dungp/miniconda3/envs/scLMCT
