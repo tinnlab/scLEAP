@@ -55,19 +55,19 @@ scLMCT/
 
 **Download:**
 
-* cellxgene: **\[DOWNLOAD\_LINK\_TRAINING]** → put under `data/cellxgene/`
-* zero_shot_data: **\[DOWNLOAD\_LINK\_EXTERNAL]** → `data/zero_shot_data/`
+* cellxgene: **\[DOWNLOAD\_LINK\_TRAINING](https://seafile.tinnguyen-lab.com/d/91f5b323e38645d28808/)** → put under `data/cellxgene/`
+* zero_shot_data: **\[DOWNLOAD\_LINK\_EXTERNAL](https://seafile.tinnguyen-lab.com/d/4b817456e18f4add8c48/)** → `data/zero_shot_data/`
 
 ---
 
 ## Quickstart
 
+### Training a new cell type annotation model
+The tutorial for training new cell type annotation model is given in [this notebook](https://github.com/tinnlab/scLMCT/tree/main/experiments/cell_type_annotation/scLMCT/training_new_annotation_model.ipynb)
 
 ### Zero-shot cell type annotation
 The tutorial for running zero-shot annotation is given in [this notebook](https://github.com/tinnlab/scLMCT/tree/main/experiments/cell_type_annotation/scLMCT/zero_shot_annotation.ipynb)
 
-### Training new cell type annotation model
-The tutorial for training new cell type annotation model is given in [this notebook](https://github.com/tinnlab/scLMCT/tree/main/experiments/cell_type_annotation/scLMCT/training_new_annotation_model.ipynb)
 
 ---
 
