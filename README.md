@@ -88,20 +88,16 @@ The tutorial for running zero-shot annotation is given in [this notebook](https:
 
 ### B) Reproduce all scores & figures from released artifacts
 
-1. **(Optional)** Download precomputed results: **\[DOWNLOAD\_LINK\_RESULTS]** → put under `./results`
+1. **(Optional)** All analyses results can be found **[HERE](https://seafile.tinnguyen-lab.com/d/2d3acb0834534795a473/)** → put under `./results`
 2. Collect metrics into a single CSV:
 
    ```bash
-   python ./experiments/metrics_collect.py \
-     --results_dir ./results \
-     --out_csv ./results/summary_metrics.csv
+   python ./experiments/metrics_collect.py 
    ```
 3. Generate all paper figures:
 
    ```bash
-   python ./experiments/plottings.py \
-     --metrics_csv ./results/summary_metrics.csv \
-     --out_dir ./figs
+   python ./experiments/plottings.py 
    ```
 
 Expected long‑table schema (written by the collectors):
@@ -130,19 +126,13 @@ scLMCT/
 
 
 ## Hardware & Runtime (guidance)
-
-* **GPU**: ≥ 16 GB recommended for full‑scale runs (works on smaller with gradient accumulation)
+All analyses were run in linux environment with the following specification:
+* **GPU**: single A6000 (48GB)
 * **CPU RAM**: ≥ 32 GB suggested for large AnnData operations
 * **Disk**: 100–500 GB depending on cached datasets and artifacts
 
 ---
 
-## Troubleshooting
-
-* **`faiss` install issues**: prefer `conda install faiss-gpu -c pytorch` to match CUDA.
-* **AnnData read errors**: ensure `anndata` ≥ 0.10 and `h5py` compiled with HDF5 ≥ 1.12.
-* **Reproducibility drift**: confirm seeds and set `torch.backends.cudnn.deterministic=True`.
-* **Plot fonts/fig sizes**: pass `--style paper` to `experiments/plottings.py`.
 
 ---
 
