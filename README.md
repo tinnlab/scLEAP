@@ -109,6 +109,9 @@ Expected long‑table schema (written by the collectors):
 
 ---
 
+## Zero-shot cell type annotation
+The tutorial for running zero-shot annotation is given in [this notebook](https://github.com/tinnlab/scLMCT/tree/main/experiments/cell_type_annotation/scLMCT/zero_shot_annotation.ipynb)
+
 ## Repository Structure
 
 ```
