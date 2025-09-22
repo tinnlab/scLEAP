@@ -16,10 +16,13 @@ dependencies = [
     "scanpy",
     "scikit_learn",
     "seaborn",
-    "torch==2.5.1",
     "transformers==4.55.3",
 ]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
 packages = ["sclmct"]
+
+# add this section
+[tool.setuptools.package-data]
+sclmct = ["ct_descriptions/*.json"]

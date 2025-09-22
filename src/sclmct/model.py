@@ -72,7 +72,7 @@ class CellEncoder(nn.Module):
 	CellEncoder is a neural network module that encodes input features into a higher-dimensional space.
 	It consists of multiple residual blocks. The last block maps to output_dim.
 	"""
-	def __init__(self, input_dim, hidden_dim, output_dim, n_layers=3, block_type='v1', use_linear_out = False):
+	def __init__(self, input_dim, hidden_dim, output_dim, n_layers=3, block_type='v2', use_linear_out = False):
 		super(CellEncoder, self).__init__()
 		self.input_dim = input_dim
 		self.hidden_dim = hidden_dim
@@ -337,15 +337,14 @@ class TrainWrapperCLIPStyle(pl.LightningModule):
 
 		prompt_labels, class_text_centers = self.get_class_text_centers(labels, only_centers=True)
 		id_to_new_index = {k.item(): v for v, k in enumerate(prompt_labels)}
+		
 		mapped_labels = labels.clone()
 		for old_id, new_id in id_to_new_index.items():
 			mapped_labels[labels == old_id] = new_id
 
 		# print(class_text_centers.shape, max(mapped_labels))
-		if self.clip_loss_type == 'label':
-			loss_clip = self.clip_loss(expr_embeddings, class_text_centers, mapped_labels)
-		else:
-			loss_clip = self.clip_loss(expr_embeddings, class_text_centers[mapped_labels])
+		loss_clip = self.clip_loss(expr_embeddings, class_text_centers, mapped_labels)
+		
 
 		loss_text_text = self.text_center_loss(class_text_centers)
 

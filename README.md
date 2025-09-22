@@ -62,9 +62,12 @@ scLMCT/
 
 ## Quickstart
 
-Run the main pipeline end‑to‑end on a sample configuration:
 
-```commands to run new train h5ad and test h5ad```
+### Zero-shot cell type annotation
+The tutorial for running zero-shot annotation is given in [this notebook](https://github.com/tinnlab/scLMCT/tree/main/experiments/cell_type_annotation/scLMCT/zero_shot_annotation.ipynb)
+
+### Training new cell type annotation model
+The tutorial for training new cell type annotation model is given in [this notebook](https://github.com/tinnlab/scLMCT/tree/main/experiments/cell_type_annotation/scLMCT/training_new_annotation_model.ipynb)
 
 ---
 
@@ -109,8 +112,6 @@ Expected long‑table schema (written by the collectors):
 
 ---
 
-## Zero-shot cell type annotation
-The tutorial for running zero-shot annotation is given in [this notebook](https://github.com/tinnlab/scLMCT/tree/main/experiments/cell_type_annotation/scLMCT/zero_shot_annotation.ipynb)
 
 ## Repository Structure
 

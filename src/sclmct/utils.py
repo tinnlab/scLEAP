@@ -4,6 +4,8 @@ import random
 import numpy as np
 from datetime import datetime
 from typing import Dict, Any, Optional
+import json
+from importlib.resources import files
 
 import torch
 import torch.nn as nn
@@ -46,19 +48,19 @@ import time
 from sklearn.metrics import normalized_mutual_info_score, adjusted_rand_score, adjusted_mutual_info_score, silhouette_score
 from sklearn.metrics.pairwise import cosine_similarity
 import matplotlib.pyplot as plt
-def get_latent_representations(data, model, batch_size, device):
-    latent_list = []
-    for i in range(0, data.shape[0], batch_size):
-        batch = data[i:i + batch_size]
-        batch_tensor = torch.tensor(batch.astype(np.float32)).to(device)
-        latent_batch = model(batch_tensor)
-        if isinstance(latent_batch, tuple):
-            latent_batch = latent_batch[0]
-        latent_list.append(latent_batch.detach().cpu().numpy())
-        del batch_tensor
-        torch.cuda.empty_cache()
-        gc.collect()
-    return np.concatenate(latent_list)
+from torch.utils.data import DataLoader, TensorDataset
+def get_latent_representations(data, model, batch_size=256, device="cuda"):
+    dataset = TensorDataset(torch.tensor(data, dtype=torch.float32))
+    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False)
+    all_latents = []
+    model.eval()
+    model.to(device)
+    with torch.no_grad():
+        for batch in dataloader:
+            inputs = batch[0].to(device)
+            latents = model(inputs)
+            all_latents.append(latents.cpu().numpy())
+    return np.vstack(all_latents)
 
 import matplotlib.cm as cm
 import matplotlib.colors as colors
@@ -474,3 +476,69 @@ def plot_embeddings(exprs_embeddings, labels, text_embeddings, text_labels, save
     plt.tight_layout()
     plt.savefig(save_path, dpi=300)
     plt.show()
+
+
+def get_semantics_labels(train_label_dict, ols_mappings=None):
+     ## return a default set of prompts
+    simple_templates = [
+        # SHORT TEMPLATES (20)
+        "A single-cell transcriptome from a {label} cell.",
+        "This is the gene expression profile of a {label} cell.",
+        "Cell type: {label} cell.",
+        "Based on its gene expression, this cell is a {label} cell.",
+        "A biologically annotated cell profile: {label} cell.",
+        "An scRNA-seq profile labeled as: {label} cell.",
+        "This cell's identity is: {label} cell",
+        "This cell is classified as a {label} cell.",
+        "Transcriptomic identity: {label} cell.",
+        "This vector encodes the functional signature of a {label} cell.",
+    ]
+    try:
+        label_prompts = load_cell_types_info()
+        if ols_mappings is None:
+            label_prompts = {k: v for k, v in label_prompts.items() if k in train_label_dict}
+            assert len(label_prompts) == len(train_label_dict), f"There're cell types that're not in the current description database"
+            label_prompts = {train_label_dict[k]: v for k, v in label_prompts.items() if k in train_label_dict}
+        else:
+            label_prompts = {k: v for k, v in label_prompts.items() if ols_mappings[k] in train_label_dict}
+            assert len(label_prompts) < len(train_label_dict), f"There're cell types that're not in the current description database"
+            label_prompts = {train_label_dict[ols_mappings[k]]: v for k, v in label_prompts.items() if k in ols_mappings}
+
+       
+        ## if 'unknown' label is present, add specific prompts
+        if 'unknown' in train_label_dict:
+            semantics_labels[train_label_dict['unknown']] = [
+                "This unknown cell population does not match any known cell type and may represent a novel or intermediate state.",
+                "This unknown cell population expresses mixed lineage markers and may represent a novel or intermediate state.",
+                "This unknown cell population has ambiguous classification with low confidence, suggesting a novel or intermediate state.",
+                "This unknown cell population is uncharacterized and may represent a rare or intermediate state.",
+                "This unknown cell population lacks canonical markers and may represent a novel or intermediate state.",
+                "This unknown cell population is not captured in current ontologies and may represent a novel or intermediate state.",
+                "This unknown cell population partially resembles immune subtypes but remains unclassified, suggesting a novel or intermediate state.",
+                "This unknown cell population forms a distinct cluster and may represent a novel or intermediate state.",
+                "This unknown cell population lacks unique markers and may represent a heterogeneous or intermediate state.",
+                "This unknown cell population may reflect stress, doublets, or noise, and is best described as a novel or intermediate state."
+            ]
+
+        #  ## if any label is missing, fill it with simple templates
+        # if len(label_prompts) < len(train_label_dict):
+        #     missing_labels = set(train_label_dict.values()) - set(semantics_labels.keys())
+        #     for missing_label in missing_labels:
+        #         semantics_labels[missing_label] = [
+        #             template.format(label=missing_label) for template in simple_templates
+        #         ]
+        ## sort the keys to ensure consistent order, important during training
+        semantics_labels = {k: label_prompts[k] for k in sorted(label_prompts.keys())}
+
+    except:
+        semantics_labels = {}
+        for label, id in train_label_dict.items():
+            label_prompts = [template.format(label=label) for template in simple_templates]
+            semantics_labels[id] = label_prompts
+    return semantics_labels
+
+
+def load_cell_types_info() -> dict:
+    path = files("sclmct.ct_descriptions") / "cell_types_info.json"
+    with path.open("r", encoding="utf-8") as f:
+        return json.load(f)

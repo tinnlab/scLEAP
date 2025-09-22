@@ -5,56 +5,6 @@ import numpy as np
 import torch.nn as nn
 
 
-class RandomGeneMask(torch.nn.Module):
-    def __init__(self, mask_prob=0.1):
-        super().__init__()
-        self.mask_prob = mask_prob
-        
-    def forward(self, x):
-        if not self.training:  # Only augment during training!
-            return x
-        mask = torch.bernoulli(torch.full_like(x, 1 - self.mask_prob))
-        return x * mask
-
-class AddGaussianNoise(torch.nn.Module):
-    def __init__(self, std=0.1):
-        super().__init__()
-        self.std = std
-        
-    def forward(self, x):
-        if not self.training:
-            return x
-        noise = torch.randn_like(x) * self.std
-        return x + noise
-    
-class RandomLibrarySizeScaling(torch.nn.Module):
-    def __init__(self, scale_min=0.8, scale_max=1.2):
-        super().__init__()
-        self.scale_min = scale_min
-        self.scale_max = scale_max
-        
-    def forward(self, x):
-        if not self.training:
-            return x
-        scale = torch.empty(x.shape[0], 1, device=x.device).uniform_(self.scale_min, self.scale_max)
-        return x * scale
-
-
-class RandomGeneShuffle(torch.nn.Module):
-    def __init__(self, n_genes=10):
-        super().__init__()
-        self.n_genes = n_genes
-        
-    def forward(self, x):
-        if not self.training or self.n_genes <= 0:
-            return x
-        x = x.clone()
-        for i in range(x.shape[0]):  # for each cell
-            idx = torch.randperm(x.shape[1])[:self.n_genes]
-            shuffled = x[i, idx][torch.randperm(self.n_genes)]
-            x[i, idx] = shuffled
-        return x
-
 
 class LOG1PTransform(nn.Module):
     def forward(self, x):
