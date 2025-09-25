@@ -222,7 +222,7 @@ if __name__ == "__main__":
         
     method_configs = {
         'scLMCT': {
-            'result_dir': "./results/main_results/scLMCT",
+            'result_dir': "./results/cell_type_annotation_results/scLMCT",
             'result_file': "pred.h5ad",
             'ground_truth_key': "true_labels_id",
             'pred_key': "pred_labels_faiss_lat_id",
@@ -230,7 +230,7 @@ if __name__ == "__main__":
 
         },
         'scGPT': {
-            'result_dir': "./results/main_results/scGPT",
+            'result_dir': "./results/cell_type_annotation_results/scGPT",
             'result_file': "embed_adata.h5ad",
             'ground_truth_key': "cell_type",
             'pred_key': "predictions",
@@ -239,7 +239,7 @@ if __name__ == "__main__":
         },
 
         'scTab': {
-            'result_dir': "./results/main_results/scTab",
+            'result_dir': "./results/cell_type_annotation_results/scTab",
             'result_file': "pred.h5ad",
             'ground_truth_key': "cell_type",
             'pred_key': "predictions",
@@ -248,7 +248,7 @@ if __name__ == "__main__":
         },
         
         'TOSICA' : {
-            'result_dir': "./results/main_results/TOSICA/",
+            'result_dir': "./results/cell_type_annotation_results/TOSICA/",
             'result_file': "pred.h5ad",
             'ground_truth_key': "cell_type_id",
             'pred_key': "Prediction",
@@ -263,7 +263,7 @@ if __name__ == "__main__":
 
     clustering_method_configs = {
         'scLMCT': {
-            'result_dir': '/nfs/blanche/dungp/single-cell/cell_annotation/results/main_results/scLMCT/',
+            'result_dir': '/nfs/blanche/dungp/single-cell/cell_annotation/results/cell_type_annotation_results/scLMCT/',
         },
         'scanpy': {
             'result_dir': "./results/clustering_results/scanpy",
