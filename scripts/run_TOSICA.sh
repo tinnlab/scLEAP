@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # --- settings ---
-REPO_URL="https://github.com/JackieHanLab/TOSICA.git"   # <-- replace with official TOSICA repo URL
+REPO_URL="https://github.com/JackieHanLab/TOSICA.git"   # TOSICA repo URL
 CLONE_DIR="./experiments/cell_type_annotation/TOSICA/TOSICA_repo"
 SCRIPT_SRC="./experiments/cell_type_annotation/TOSICA/run_TOSICA.py"
 SCRIPT_DST="$CLONE_DIR/TOSICA/run_TOSICA.py"
