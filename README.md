@@ -58,6 +58,7 @@ scLMCT/
 * zero_shot_data: **[DOWNLOAD\_LINK\_ZERO\_SHOT](https://seafile.tinnguyen-lab.com/d/4b817456e18f4add8c48/)** → `data/zero_shot_data/`
 
 Detail information of the datasets used in the manuscript can be found [HERE](https://seafile.tinnguyen-lab.com/f/512e913575a24058816a/) 
+Everything else can be found [HERE](https://seafile.tinnguyen-lab.com/d/c86371665e324df7be53/)
 
 ---
 
