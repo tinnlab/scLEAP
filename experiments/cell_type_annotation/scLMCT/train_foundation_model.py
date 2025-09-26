@@ -16,11 +16,9 @@ os.environ['BLAS_NUM_THREADS'] = '1'
 import argparse
 parser = argparse.ArgumentParser(description="Run training and evaluation for a specific seed.")
 parser.add_argument("-s", "--seed", type=int, required=True, help="Seed value for the run.")
-parser.add_argument("-r", "--run_id", type=str, required=True, help="Unique identifier for the run.")
-parser.add_argument("-l", "--loss_func", type=str, default='arcface', help="Which loss function to use. arcface or curricular")
 parser.add_argument("-g", "--gpu", type=int, required=True, help="GPU device to use.")
-parser.add_argument("-e", "--max_epochs", type=int, default=20, help="Maximum number of epochs for training.")
-parser.add_argument("-d", "--data_fold", type=str, required=True, help="Folder of the parquets, e.g. 'foundation-training-data'")
+parser.add_argument("-e", "--max_epochs", type=int, default=100, help="Maximum number of epochs for training.")
+parser.add_argument("-d", "--data_dir", type=str, required=True, help="Directory of the parquets, e.g. 'foundation-training-data'")
 
 args = parser.parse_args()
 
@@ -31,13 +29,13 @@ args = parser.parse_args()
 #         self.loss_func = 'combine'
 #         self.gpu = '1'
 #         self.max_epochs = 20
-#         self.data_fold = "data-processed-by-Dung-min-count-100-balanced-max5000"
+#         self.data_dir = "data-processed-by-Dung-min-count-100-balanced-max5000"
 # args = ARGS()
 
 os.environ['CUDA_VISIBLE_DEVICES'] = f'{args.gpu}'
-from numba import cuda
+# from numba import cuda
  
-cuda.select_device(0)
+# cuda.select_device(0)
 import gc
 import json
 import time
@@ -68,8 +66,9 @@ from sclmct.model import TrainWrapperCLIPStyle
 import cupy
 
 #%%
-parquet_root = "./data/"
-
+# cache folder to store the cached prompt embeddings
+cache_folder = "./cache/"
+os.makedirs(cache_folder, exist_ok=True)
 
 PARQUET_SCHEMA = {
     'X': float32,
@@ -82,12 +81,12 @@ PARQUET_SCHEMA = {
 # -------------------------------
 # 1. Configuration and Settings
 # -------------------------------
-ols_json_path = "./data/ct_mappings/cellname2id.json"
+ols_json_path = "/data/share/dungp/single-cell/ct-classification/code4publication/code-for-reproducibility/scLMCT/data/ct_mappings/cellname2id.json"
 ols_mappings = json.load(open(ols_json_path, 'r'))
-ols_to_int = json.load(open(f"./foundation_model/cell_type_to_int.json", 'r'))
+ols_to_int = json.load(open(f"/data/share/dungp/single-cell/ct-classification/code4publication/code-for-reproducibility/scLMCT/checkpoints/foundation_model/cell_type_to_int.json", 'r'))
 
 ## path to the cell type description json file
-prompts_path = "./foundation_model/cell_type_descriptions.json"
+prompts_path = "/data/share/dungp/single-cell/ct-classification/code4publication/code-for-reproducibility/scLMCT/checkpoints/foundation_model/cell_type_descriptions.json"
 label_prompts = json.load(open(prompts_path, 'r'))
 label_prompts = {ols_to_int[ols_mappings[k]]: v for k, v in label_prompts.items() if k in ols_mappings and ols_mappings[k] in ols_to_int}
 
@@ -111,13 +110,12 @@ settings = {
     "arc_s": 30,
     "arc_m": 0.4,
     "f_gamma": 1, ## focal loss gamma
-    "loss_type": f"{args.loss_func}",  # Choose between "arcface", "curricular", or "combine"
     "device": 'cuda:0',
     "batch_size": 4096 * 2,
     "epochs": args.max_epochs,
     "class_weights": None,  # Replace with actual class weights if needed
     "l_lambda": 0.5,  # Weight for text loss
-    "cache_path": "./cache/cached_prompt_embeddings.pt",  # Path to cache directory
+    "cache_path": f"{cache_folder}/cached_prompt_embeddings.pt",  # Path to cache directory
     "clip_loss_type": "label"  # Type of CLIP loss to use
 }
 
@@ -194,13 +192,11 @@ def seed_worker(worker_id):
 
 
 #%%
-def run_seed(run_id, seed):
-    run_id = args.run_id
+def run_seed(seed):
     seed = args.seed
     # Set the seed for reproducibility and initialize logger
     seed_worker(seed)
     run_root = "./scLMCT_foundation"
-    run_root = os.path.join(run_root, run_id)
     os.makedirs(run_root, exist_ok=True)
     with open(os.path.join(run_root, "settings.json"), "w") as f:
         json.dump(settings, f, indent=4)
@@ -215,7 +211,7 @@ def run_seed(run_id, seed):
 
     logger = CSVLogger(log_fold, version=f"run_{seed}", name="mamba_training")
 
-    train_parquets = [os.path.join(parquet_root, f'{args.data_fold}', file) for file in os.listdir(os.path.join(parquet_root, f'{args.data_fold}')) if file.endswith('.parquet')]
+    train_parquets = [os.path.join(args.data_dir, file) for file in os.listdir(args.data_dir) if file.endswith('.parquet')]
     train_loader = get_loaders(seed, train_parquets, settings['batch_size'])
 
     
@@ -277,7 +273,7 @@ def run_seed(run_id, seed):
 if __name__ == "__main__":
 
 
-    run_seed(args.run_id, args.seed)
+    run_seed(args.seed)
     
 
 
