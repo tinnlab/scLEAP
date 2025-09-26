@@ -60,7 +60,14 @@ class ARGS:
 # parser = get_arg_parser()
 # args = parser.parse_args()
 # os.environ['CUDA_VISIBLE_DEVICES'] = f'{args.device}'  # Set to your desired GPU ID
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'  # Set to your desired GPU ID
+import argparse
+parser = argparse.ArgumentParser(description="scLMCT Final Run")
+parser.add_argument('--device', type=float, default=0, help='GPU ID to use')
+parser.add_argument('--data_dir', type=str, required=True, help='Path to data directory')
+parser.add_argument('--result_dir', type=str, default="./results", help='Root directory to save results')
+
+args_tmp = parser.parse_args()
+os.environ['CUDA_VISIBLE_DEVICES'] = f'{args_tmp.device}'  # Set to your desired GPU ID
 
 
 import pytorch_lightning as pl
@@ -84,7 +91,9 @@ import faiss
 from sclmct.model import TrainWrapperCLIPStyle
 from sclmct.dataset import H5ADDataset, LOG1PTransform, TotalSumNormalize
 from sclmct.utils import predict_with_distance_weights
-from sclmct.paths import DATA_DIR, MODELS_DIR, RESULTS_DIR, CONFIGS_DIR, ensure_dirs
+
+DATA_DIR = args_tmp.data_dir
+RESULTS_DIR = args_tmp.result_dir
 
 
 def determine_batch_size(n):
@@ -210,7 +219,7 @@ def run_tissue(tissue, args):
     
 
     
-    ols_mappings = json.load(open(DATA_DIR / "ct_mappings" / "improved_cellname2id_mappings.json", 'r'))
+    ols_mappings = json.load(open(args.data_dir / "ct_mappings" / "cellname2id.json", 'r'))
     ols_mappings = {k.lower(): v.lower() for k, v in ols_mappings.items()}
     inverse_ols_mappings = {v.lower(): k.lower() for k, v in ols_mappings.items()}
     transform = torch.nn.Sequential(LOG1PTransform(), TotalSumNormalize(target_sum=1e4))
@@ -357,17 +366,7 @@ def run_tissue(tissue, args):
 
     print("Creating prediction AnnData object...")
     start_andata_pred = time.time()
-    # pred_adata = sc.AnnData(test_lat)
-    # pred_adata.obs['true_labels'] = test_lbls
-    # pred_adata.obs['true_labels_id'] = [ols_mappings[x] for x in test_lbls]
-    # pred_adata.obs['pred_labels_faiss_sem'] = [inverse_ols_mappings[x] for x in pred_sem]
-    # pred_adata.obs['pred_labels_faiss_sem_id'] = pred_sem
-    # pred_adata.obs['pred_labels_faiss_lat'] = [inverse_ols_mappings[x] for x in pred_lat]
-    # pred_adata.obs['pred_labels_faiss_lat_id'] = pred_lat
-    # pred_adata.obsm['faiss_similarity_sem'] = D_sem
-    # pred_adata.obsm['faiss_similarity_lat'] = D_lat
-
-
+    
     # Build obs DataFrame in one go
     obs_df = pd.DataFrame({
         'true_labels': test_lbls,
@@ -390,10 +389,6 @@ def run_tissue(tissue, args):
     print(f"AnnData creation took {end_andata_pred - start_andata_pred:.2f} seconds")
     pred_adata.write_h5ad(os.path.join(PATH_TO_SAVE, "pred.h5ad"))
 
-    # # Save latent matrix (with compression)
-    # np.savez_compressed(os.path.join(PATH_TO_SAVE, "test_lat.npz"), test_lat=test_lat)
-    # # Save obs DataFrame
-    # obs_df.to_parquet(os.path.join(PATH_TO_SAVE, "obs_df.parquet"), index=False)
     print("Calculating metrics...")
     start_metrics = time.time()
     y_true = np.array(obs_df['true_labels_id'])[idx2cal]
