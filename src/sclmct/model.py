@@ -334,13 +334,13 @@ class TrainWrapperCLIPStyle(pl.LightningModule):
 	def training_step(self, batch, batch_idx):
 
 		## check if batch is a tuple of (expr, labels) or dict of expr_input, labels = batch[0]['X'], batch[0]['ontology_int']
-		if isinstance(batch[0], tuple):
-			expr_input, labels = batch
-		else:
-			## extract the keys from the dict
-			## assume the dict has keys 'X' and 'ontology_int'
+		if isinstance(batch[0], dict):
+			## using merlin dataloader
 			data_keys = list(batch[0].keys())
 			expr_input, labels = batch[0][data_keys[0]], batch[0][data_keys[1]]
+		else:
+			expr_input, labels = batch
+			
 		expr_embeddings = self(expr_input)
 
 		prompt_labels, class_text_centers = self.get_class_text_centers(labels, only_centers=True)

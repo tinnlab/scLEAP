@@ -1,6 +1,6 @@
 #%%
 import os
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 
 os.environ['OMP_NUM_THREADS'] = '1'
 os.environ['OPENBLAS_NUM_THREADS'] = '1'
@@ -87,13 +87,17 @@ from itertools import product
 from torch.utils.data import DataLoader
 from sklearn.metrics import accuracy_score, f1_score, classification_report
 import faiss
+from pathlib import Path
 
 from sclmct.model import TrainWrapperCLIPStyle
 from sclmct.dataset import H5ADDataset, LOG1PTransform, TotalSumNormalize
 from sclmct.utils import predict_with_distance_weights
 
-DATA_DIR = args_tmp.data_dir
-RESULTS_DIR = args_tmp.result_dir
+
+DATA_DIR = Path(args_tmp.data_dir)
+RESULTS_DIR = Path(args_tmp.result_dir)
+
+print(DATA_DIR)
 
 
 def determine_batch_size(n):
@@ -217,9 +221,7 @@ def run_tissue(tissue, args):
     PATH_TRAIN = f"{args.data_dir}/{tissue}/train.h5ad"
     PATH_TEST = f"{args.data_dir}/{tissue}/test.h5ad"
     
-
-    
-    ols_mappings = json.load(open(args.data_dir / "ct_mappings" / "cellname2id.json", 'r'))
+    ols_mappings = json.load(open(DATA_DIR / "ct_mappings" / "cellname2id.json", 'r'))
     ols_mappings = {k.lower(): v.lower() for k, v in ols_mappings.items()}
     inverse_ols_mappings = {v.lower(): k.lower() for k, v in ols_mappings.items()}
     transform = torch.nn.Sequential(LOG1PTransform(), TotalSumNormalize(target_sum=1e4))

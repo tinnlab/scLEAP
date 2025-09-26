@@ -259,7 +259,7 @@ if __name__ == "__main__":
     }
 
     df_cls = build_classification_df(method_configs, tissues, num_workers=8)
-    df_cls.to_csv("./results/cell_type_classification.csv", index=False)
+    df_cls.to_csv("./results/cell_type_classification_results.csv", index=False)
 
     clustering_method_configs = {
         'scLMCT': {
@@ -276,4 +276,4 @@ if __name__ == "__main__":
         },
     }
     df_clu = build_clustering_df(clustering_method_configs)
-    df_clu.to_csv("./results/cell_type_clustering.csv", index=False)
+    df_clu.to_csv("./results/cell_type_clustering_results.csv", index=False)

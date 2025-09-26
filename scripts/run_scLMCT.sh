@@ -32,6 +32,9 @@ set +u
 conda activate "${ENV_NAME}"
 set -u
 
+# --- step 2.5: install sclmct package ---
+pip install -e .
+
 # --- step 3: ensure output dir ---
 mkdir -p "${RESULT_DIR}"
 
