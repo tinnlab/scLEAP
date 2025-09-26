@@ -91,14 +91,11 @@ def run(dataset):
 
 if __name__ == '__main__':
     
-    tissue_file = "/data/share/dungp/single-cell/ct-classification/valid_tissues.txt"
-    with open(tissue_file, "r") as f:
-        tissues = [line.strip() for line in f.readlines()]
+    tissues = os.listdir(base_path)
 
-    # tissues = os.listdir(base_path)
     remain_tissues = [t for t in tissues if not os.path.exists(os.path.join(result_path, t, "result.txt"))]
     # with mp.Pool(8) as p:
-    #     results = p.map(run, remain_tissues)
+    #     results = p.map(run, remain_tissues)  
 
     for tissue in remain_tissues:
         run(tissue)

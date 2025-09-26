@@ -42,9 +42,7 @@ save_fold = "/data/share/dungp/single-cell/ct-classification/code4publication/co
 
 #%%
 
-#%%
-with open("./data/valid_tissues.txt", 'r') as f:
-    tissues = [line.strip() for line in f.readlines()]
+tissues = os.listdir(result_dir)
 
 for dts_name in tqdm(tissues):
 

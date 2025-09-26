@@ -110,8 +110,8 @@ process_tissue <- function(tissue) {
   })
 }
 
-tissue_file <- "./data/valid_tissues.txt"
-tissues <- readLines(tissue_file)
+
+tissues <- list.dirs(base_path, full.names = FALSE, recursive = FALSE)
 
 remain_tissues <- tissues[!file.exists(file.path(path_to_save, tissues, "results.txt"))]
 

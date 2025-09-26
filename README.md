@@ -1,9 +1,7 @@
 # scLMCT
 
-**scLMCT: Single‑Cell Language‑Model‑Guided Cell‑Type Annotation**
-abstract
+**This is the code base for scLMCT: Single‑Cell Language‑Model‑Guided Cell‑Type Annotation**
 
-> **TL;DR** Train scLMCT on donor‑split tissue data, evaluate against baselines (scGPT, scTab, TOSICA, …), and regenerate all tables/figures with one command.
 
 ---
 
@@ -25,7 +23,7 @@ abstract
 
 ```bash
 # (Optional) Create the exact research environment
-mamba env create -f ./experiments/configs.yml  # or: conda env create -f environment.yml
+mamba env create -f ./experiments/configs/scLMCT.yml  
 conda activate scLMCT
 ```
 
@@ -41,7 +39,18 @@ pip install -e .
 
 ---
 
-## Data
+## Quickstart
+
+### Training a new cell type annotation model
+The tutorial for training new cell type annotation model is given in [this notebook](https://github.com/tinnlab/scLMCT/tree/main/experiments/cell_type_annotation/scLMCT/training_new_annotation_model.ipynb)
+
+### Zero-shot cell type annotation
+The tutorial for running zero-shot annotation is given in [this notebook](https://github.com/tinnlab/scLMCT/tree/main/experiments/cell_type_annotation/scLMCT/zero_shot_annotation.ipynb)
+
+
+---
+
+## Data & Pre-trained weights
 
 Place data under `./data/` using the layout below.
 
@@ -58,18 +67,8 @@ scLMCT/
 * zero_shot_data: **[DOWNLOAD\_LINK\_ZERO\_SHOT](https://seafile.tinnguyen-lab.com/d/4b817456e18f4add8c48/)** → `data/zero_shot_data/`
 
 Detail information of the datasets used in the manuscript can be found [HERE](https://seafile.tinnguyen-lab.com/f/512e913575a24058816a/) 
+
 Everything else can be found [HERE](https://seafile.tinnguyen-lab.com/d/c86371665e324df7be53/)
-
----
-
-## Quickstart
-
-### Training a new cell type annotation model
-The tutorial for training new cell type annotation model is given in [this notebook](https://github.com/tinnlab/scLMCT/tree/main/experiments/cell_type_annotation/scLMCT/training_new_annotation_model.ipynb)
-
-### Zero-shot cell type annotation
-The tutorial for running zero-shot annotation is given in [this notebook](https://github.com/tinnlab/scLMCT/tree/main/experiments/cell_type_annotation/scLMCT/zero_shot_annotation.ipynb)
-
 
 ---
 
@@ -95,11 +94,6 @@ The tutorial for running zero-shot annotation is given in [this notebook](https:
 
    ```bash
    python ./experiments/metrics_collect.py 
-   ```
-3. Generate all paper figures:
-
-   ```bash
-   python ./experiments/plottings.py 
    ```
 
 Expected long‑table schema (written by the collectors):
