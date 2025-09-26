@@ -113,10 +113,10 @@ Expected two result tables given **[HERE](https://seafile.tinnguyen-lab.com/d/2d
 
 ```
 scLMCT/
- ├─ configs/                    # YAML configs for experiments
+ ├─ data/                       # Folder to store the data
+ ├─ experiments/                # Code for comparison methods & metric collection & plotting
  ├─ scripts/                    # Bash entrypoints per method
  ├─ src/                        # Main code of the package
- ├─ experiments/                # Code for comparison methods & metric collection & plotting
  ├─ results/                    # outputs (checkpoints, CSVs, figs)
  ├─ LICENSE                     # choose a license (see below)
  └─ README.md                   # this file
