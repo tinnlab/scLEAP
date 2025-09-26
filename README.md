@@ -88,7 +88,7 @@ Everything else can be found [HERE](https://seafile.tinnguyen-lab.com/d/c8637166
 
 ### A) Re‑run the full analysis
 
-1. Ensure data are in `./data` (see **Data** section).
+1. Ensure data are in `./data` (see **Data & Pre-trained weights** section).
 2. Run the desired method script, e.g.:
 
    ```bash
