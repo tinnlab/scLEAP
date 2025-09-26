@@ -52,6 +52,9 @@ pip install -e .
 ### Training a new cell type annotation model
 The tutorial for training new cell type annotation model is given in [this notebook](https://github.com/tinnlab/scLMCT/tree/main/experiments/cell_type_annotation/scLMCT/training_new_annotation_model.ipynb)
 
+### Training the foundation model
+The tutorial for training the scLMCT foundation model can be found [HERE](https://github.com/tinnlab/scLMCT/blob/main/experiments/cell_type_annotation/scLMCT/README.md)
+
 ### Zero-shot cell type annotation
 The tutorial for running zero-shot annotation is given in [this notebook](https://github.com/tinnlab/scLMCT/tree/main/experiments/cell_type_annotation/scLMCT/zero_shot_annotation.ipynb)
 
