@@ -25,8 +25,14 @@
 
 ### 2) Clone & Install sclmct
 
-Create conda environment:
+Clone the repository:
 
+```bash
+git clone https://github.com/tinnlab/scLMCT.git
+cd scLMCT
+```
+
+Create conda environment:
 ```bash
 # (Optional) Create the exact research environment
 mamba env create -f ./experiments/configs/scLMCT.yml  
@@ -36,9 +42,6 @@ conda activate scLMCT
 Install scLMCT:
 
 ```bash
-git clone https://github.com/tinnlab/scLMCT.git
-cd scLMCT
-
 pip install -e .
 ```
 
