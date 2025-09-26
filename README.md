@@ -101,7 +101,7 @@ Everything else can be found [HERE](https://seafile.tinnguyen-lab.com/d/c8637166
 ### B) Reproduce all scores & figures from released artifacts
 
 1. **(Optional)** All analyses results can be found **[HERE](https://seafile.tinnguyen-lab.com/d/2d3acb0834534795a473/)** → put under `./results`
-2. Collect metrics into a single CSV:
+2. Collect metrics into CSV files:
 
    ```bash
    python ./experiments/metrics_collect.py 
