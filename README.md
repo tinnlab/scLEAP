@@ -96,11 +96,7 @@ Everything else can be found [HERE](https://seafile.tinnguyen-lab.com/d/c8637166
    python ./experiments/metrics_collect.py 
    ```
 
-Expected long‑table schema (written by the collectors):
-
-```
-['method','tissue','donor_id','cell_type','metric','score']
-```
+Expected two result tables given **[HERE](https://seafile.tinnguyen-lab.com/d/2d3acb0834534795a473/)**
 
 ---
 
