@@ -7,9 +7,9 @@
 
 ## Features
 
-* **Train a new cell type annotation model** 
-* **zezo-shot cell annotation using pretrained model** 
-* **reproducibility of all results in the manuscript** 
+* **Train a cell type annotation model** 
+* **Zero-shot cell annotation using pretrained model** 
+* **Reproducibility of all results in the manuscript** 
 
 ---
 
