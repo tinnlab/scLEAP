@@ -21,14 +21,19 @@
 * (Recommended) Conda/Mamba for env management
 * NVIDIA GPU + CUDA/cuDNN 
 
+
+
+### 2) Clone & Install sclmct
+
+Create conda environment:
+
 ```bash
 # (Optional) Create the exact research environment
 mamba env create -f ./experiments/configs/scLMCT.yml  
 conda activate scLMCT
 ```
 
-
-### 2) Clone & Install sclmct
+Install scLMCT:
 
 ```bash
 git clone https://github.com/tinnlab/scLMCT.git
