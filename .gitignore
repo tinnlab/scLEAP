@@ -208,3 +208,9 @@ __marimo__/
 
 
 lightning_logs/
+**/lightning_logs/
+**/results/
+**/cache/
+**/runs/
+*.ckpt
+cached_prompt_embeddings.pt

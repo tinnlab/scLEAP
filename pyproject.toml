@@ -3,8 +3,10 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "sclmct"
+name = "sclead"
 version = "0.1.0"
+description = "Single-cell language-model-guided embedding and annotation workflows."
+readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
     "anndata",
@@ -16,13 +18,14 @@ dependencies = [
     "scanpy",
     "scikit_learn",
     "seaborn",
+    "torch==2.5.1",
     "transformers==4.55.3",
 ]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
-packages = ["sclmct"]
+packages = ["sclead"]
 
 # add this section
 [tool.setuptools.package-data]
-sclmct = ["ct_descriptions/*.json"]
+sclead = ["ct_descriptions/*.json"]
