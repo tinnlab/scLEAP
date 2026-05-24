@@ -35,7 +35,7 @@ Core runtime dependencies are declared in `pyproject.toml` and mirrored in `src/
 
 ## Main Workflows
 
-Detailed dataset placement and run commands for analysis scripts are documented in [analyses/README.md](/home/dungp/scLEAD/analyses/README.md).
+Detailed dataset placement and run commands for analysis scripts are documented in [analyses/README.md](https://github.com/tinnlab/scLEAD/blob/main/analyses/README.md).
 
 Within-tissue annotation:
 
