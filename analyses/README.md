@@ -3,7 +3,7 @@
 This directory contains runnable analysis workflows. The scripts now resolve repo-relative paths, so you can run them from the repository root without depending on one specific working directory.
 
 ## Data availability and reproducibility
-Data, results and checkpoints can be accessed via [this](https://seafile.tinnguyen-lab.com/d/4276c944e5934d30bd4b/)
+Data, results and checkpoints can be accessed and downloaded through [this link](https://seafile.tinnguyen-lab.com/d/4276c944e5934d30bd4b/).
 
 ## Data Layout
 
