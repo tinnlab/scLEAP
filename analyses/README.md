@@ -23,10 +23,10 @@ data/
    └─ ...
 ```
 
-Small shared metadata already used by the analyses lives in [analyses/data](scLEAD/analyses/data):
+Small shared metadata already used by the analyses lives in [analyses/data](https://github.com/tinnlab/scLEAD/blob/main/analyses/data):
 
-- [analyses/data/tissue_cell_counts.csv](scLEAD/analyses/data/tissue_cell_counts.csv)
-- [analyses/data/graph_embeddings/cl_poincare_embeddings.npz](scLEAD/analyses/data/graph_embeddings/cl_poincare_embeddings.npz)
+- [analyses/data/tissue_cell_counts.csv](https://github.com/tinnlab/scLEAD/blob/main/data/tissue_cell_counts.csv)
+- [analyses/data/graph_embeddings/cl_poincare_embeddings.npz](https://github.com/tinnlab/scLEAD/blob/main/data/graph_embeddings/cl_poincare_embeddings.npz)
 
 Write generated outputs under `outputs/` instead of back into `analyses/`.
 
@@ -93,7 +93,7 @@ python analyses/zero_shot_annotation/run_zero_shot_prediction.py \
 
 Input:
 - `data/<tissue>/test.h5ad`
-- Tissue list CSV at [analyses/data/tissue_cell_counts.csv](scLEAD/analyses/data/tissue_cell_counts.csv), or pass a different one
+- Tissue list CSV at [analyses/data/tissue_cell_counts.csv](https://github.com/tinnlab/scLEAD/blob/main/data/tissue_cell_counts.csv), or pass a different one
 
 Run:
 
