@@ -25,8 +25,8 @@ data/
 
 Small shared metadata already used by the analyses lives in [analyses/data](https://github.com/tinnlab/scLEAD/blob/main/analyses/data):
 
-- [analyses/data/tissue_cell_counts.csv](https://github.com/tinnlab/scLEAD/blob/main/data/tissue_cell_counts.csv)
-- [analyses/data/graph_embeddings/cl_poincare_embeddings.npz](https://github.com/tinnlab/scLEAD/blob/main/data/graph_embeddings/cl_poincare_embeddings.npz)
+- [analyses/data/tissue_cell_counts.csv](https://github.com/tinnlab/scLEAD/blob/main/analyses/data/tissue_cell_counts.csv)
+- [analyses/data/graph_embeddings/cl_poincare_embeddings.npz](https://github.com/tinnlab/scLEAD/blob/main/analyses/data/data/graph_embeddings/cl_poincare_embeddings.npz)
 
 Write generated outputs under `outputs/` instead of back into `analyses/`.
 
