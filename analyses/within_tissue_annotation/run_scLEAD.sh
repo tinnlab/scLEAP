@@ -19,7 +19,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 # -------------------- Config --------------------
-CSV_PATH="${CSV_PATH:-${REPO_ROOT}/analyses/data/tissue_cell_counts.csv}"
+CSV_PATH="${CSV_PATH:-${REPO_ROOT}/data/tissue_cell_counts.csv}"
 PYTHON_BIN="${PYTHON_BIN:-python}"
 SCRIPT_PATH="${SCRIPT_PATH:-${SCRIPT_DIR}/run_scLEAD.py}"
 

@@ -72,7 +72,7 @@ except Exception:
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_TISSUE_CSV = str(REPO_ROOT / "analyses" / "data" / "tissue_cell_counts.csv")
+DEFAULT_TISSUE_CSV = str(REPO_ROOT / "data" / "tissue_cell_counts.csv")
 
 
 # ----------------------------
@@ -582,7 +582,7 @@ CUDA_VISIBLE_DEVICES=7 python run_clustering_scLEAD_new.py \
   --ckpt_path ../checkpoint.ckpt \
   --data_dir data \
   --result_dir ./clustering_results \
-  --tissue_csv analyses/data/tissue_cell_counts.csv \
+    --tissue_csv data/tissue_cell_counts.csv \
   --label_key cell_type \
   --seed 1 \
   --max_cells 30000000 \

@@ -57,7 +57,7 @@ from sclead.gpu_parquet_dataset import build_loader
 from sclead.utils import predict_with_distance_weights, load_cell_types_info, load_cell_types_mapping
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_GRAPH_EMB_NPZ = str(REPO_ROOT / "analyses" / "data" / "graph_embeddings" / "cl_poincare_embeddings.npz")
+DEFAULT_GRAPH_EMB_NPZ = str(REPO_ROOT / "data" / "graph_embeddings" / "cl_poincare_embeddings.npz")
 DEFAULT_OLS_MAPPINGS = str(REPO_ROOT / "src" / "sclead" / "ct_descriptions" / "cell_name_to_ols_id.json")
 DEFAULT_CT_DESCRIPTIONS = str(REPO_ROOT / "src" / "sclead" / "ct_descriptions" / "cell_types_info.json")
 # ----------------------------

@@ -600,6 +600,6 @@ python train_foundation_model.py \
     --l-tt 0.0 \
     --l-contrastive 0.0 \
     --pool-type cls \
-    --graph-emb-npz "analyses/data/graph_embeddings/cl_poincare_embeddings.npz"
+    --graph-emb-npz "data/graph_embeddings/cl_poincare_embeddings.npz"
     
 """

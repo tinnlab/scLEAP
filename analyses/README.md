@@ -7,7 +7,7 @@ Data, results and checkpoints can be accessed and downloaded through [this link]
 
 ## Data Layout
 
-Download and Put data under [analyses/data](ttps://github.com/tinnlab/scLEAD/blob/main/analyses/data):
+Place the data under [data](../data):
 
 ```text
 data/
@@ -66,7 +66,7 @@ Run:
 python analyses/zero_shot_annotation/train_foundation_model.py \
   --data-dir data/<dataset_name> \
   --save-dir outputs/foundation_model \
-  --graph-emb-npz analyses/data/graph_embeddings/cl_poincare_embeddings.npz
+  --graph-emb-npz data/graph_embeddings/cl_poincare_embeddings.npz
 ```
 
 ## Zero-Shot Prediction
@@ -89,7 +89,7 @@ python analyses/zero_shot_annotation/run_zero_shot_prediction.py \
 
 Input:
 - `data/<tissue>/test.h5ad`
-- Tissue list CSV at [analyses/data/tissue_cell_counts.csv](https://github.com/tinnlab/scLEAD/blob/main/data/tissue_cell_counts.csv), or pass a different one
+- Tissue list CSV at [data/tissue_cell_counts.csv](../data/tissue_cell_counts.csv), or pass a different one
 
 Run:
 
@@ -98,7 +98,7 @@ python analyses/cell_clustering/run_clustering_scLEAD_new.py \
   --ckpt_path outputs/foundation_model/best.ckpt \
   --data_dir data \
   --result_dir outputs/cell_clustering \
-  --tissue_csv analyses/data/tissue_cell_counts.csv \
+  --tissue_csv data/tissue_cell_counts.csv \
   --normalize_before_model \
   --normalize_embedding
 ```
