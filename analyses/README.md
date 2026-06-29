@@ -2,9 +2,12 @@
 
 This directory contains runnable analysis workflows. The scripts now resolve repo-relative paths, so you can run them from the repository root without depending on one specific working directory.
 
+## Data availability and reproducibility
+Data, results and checkpoints can be accessed via [this](https://seafile.tinnguyen-lab.com/d/4276c944e5934d30bd4b/)
+
 ## Data Layout
 
-Put local datasets under [data](scLEAD/data):
+Download and Put data under [analyses/data](ttps://github.com/tinnlab/scLEAD/blob/main/analyses/data):
 
 ```text
 data/
@@ -22,13 +25,6 @@ data/
    ├─ GSE111976.h5ad
    └─ ...
 ```
-
-Small shared metadata already used by the analyses lives in [analyses/data](https://github.com/tinnlab/scLEAD/blob/main/analyses/data):
-
-- [analyses/data/tissue_cell_counts.csv](https://github.com/tinnlab/scLEAD/blob/main/analyses/data/tissue_cell_counts.csv)
-- [analyses/data/graph_embeddings/cl_poincare_embeddings.npz](https://github.com/tinnlab/scLEAD/blob/main/analyses/data/data/graph_embeddings/cl_poincare_embeddings.npz)
-
-Write generated outputs under `outputs/` instead of back into `analyses/`.
 
 ## Within-Tissue Annotation
 
