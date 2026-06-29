@@ -4,7 +4,7 @@ This directory contains runnable analysis workflows. The scripts now resolve rep
 
 ## Data Layout
 
-Put local datasets under [data](/home/dungp/scLEAD/data):
+Put local datasets under [data](scLEAD/data):
 
 ```text
 data/
@@ -23,10 +23,10 @@ data/
    └─ ...
 ```
 
-Small shared metadata already used by the analyses lives in [analyses/data](/home/dungp/scLEAD/analyses/data):
+Small shared metadata already used by the analyses lives in [analyses/data](scLEAD/analyses/data):
 
-- [analyses/data/tissue_cell_counts.csv](/home/dungp/scLEAD/analyses/data/tissue_cell_counts.csv)
-- [analyses/data/graph_embeddings/cl_poincare_embeddings.npz](/home/dungp/scLEAD/analyses/data/graph_embeddings/cl_poincare_embeddings.npz)
+- [analyses/data/tissue_cell_counts.csv](scLEAD/analyses/data/tissue_cell_counts.csv)
+- [analyses/data/graph_embeddings/cl_poincare_embeddings.npz](scLEAD/analyses/data/graph_embeddings/cl_poincare_embeddings.npz)
 
 Write generated outputs under `outputs/` instead of back into `analyses/`.
 
@@ -93,7 +93,7 @@ python analyses/zero_shot_annotation/run_zero_shot_prediction.py \
 
 Input:
 - `data/<tissue>/test.h5ad`
-- Tissue list CSV at [analyses/data/tissue_cell_counts.csv](/home/dungp/scLEAD/analyses/data/tissue_cell_counts.csv), or pass a different one
+- Tissue list CSV at [analyses/data/tissue_cell_counts.csv](scLEAD/analyses/data/tissue_cell_counts.csv), or pass a different one
 
 Run:
 
