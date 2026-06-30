@@ -36,7 +36,7 @@ def resolve_repo_path(path_str: str) -> Path:
     path = Path(path_str).expanduser()
     if path.is_absolute():
         return path
-    return (REPO_ROOT / path).resolve()
+    return path.resolve()
 
 
 def parse_args() -> argparse.Namespace:

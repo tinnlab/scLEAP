@@ -14,7 +14,7 @@ dependencies = [
     "matplotlib",
     "numpy",
     "pandas",
-    "pytorch_lightning==2.5.3",
+    "pytorch_lightning",
     "scanpy",
     "scikit_learn",
     "seaborn",
