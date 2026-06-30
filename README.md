@@ -1,8 +1,8 @@
 # scLEAD
 
-`scLEAD` is a research codebase for single-cell language-model-guided embedding, annotation, zero-shot transfer, and clustering analyses.
+`scLEAD` is a research codebase for single-cell language-guided representation learning, cell-type annotation, zero-shot transfer, and clustering analyses.
 
-The repository contains the Python package code under `src/sclead/` and runnable analysis workflows under `analyses/`.
+The repository contains the Python package under `src/sclead/` and runnable analysis workflows under `analyses/`.
 
 ## Repository Structure
 
@@ -12,7 +12,7 @@ scLEAD/
 │  ├─ within_tissue_annotation/
 │  ├─ zero_shot_annotation/
 │  └─ cell_clustering/
-│  └─ data/
+├─ data/
 ├─ src/sclead/
 │  ├─ model.py
 │  ├─ dataset.py
@@ -28,25 +28,20 @@ scLEAD/
 
 ## Installation
 
-The recommended setup is:
+The recommended setup is to create the Conda environment, install GPU-specific dependencies separately, and then install `scLEAD` in editable mode.
 
-1. Create the Conda environment.
-2. Install PyTorch using the official PyTorch installation selector.
-3. Install RAPIDS using the official RAPIDS installation selector.
-4. Install `scLEAD` in editable mode.
+PyTorch and RAPIDS are not pinned directly in `sclead.yml` or `pyproject.toml` because the correct installation command depends on the local GPU driver, CUDA version, Python version, and platform.
 
-PyTorch and RAPIDS are installed separately because their correct wheels depend on the local GPU driver, CUDA version, Python version, and platform.
+### 1. Create the Conda Environment
 
-### 1. Create the Conda environment
-
-From the repository root:
+From the repository root, run:
 
 ```bash
 conda env create -f sclead.yml
 conda activate sclead
 ```
 
-If you prefer to create the environment manually:
+Alternatively, create the environment manually:
 
 ```bash
 conda create -n sclead python=3.11 -y
@@ -63,21 +58,13 @@ python -m pip --version
 
 ### 2. Install PyTorch
 
-Install PyTorch by following the official PyTorch installation selector:
+Install PyTorch using the official PyTorch installation selector:
 
-* Select your operating system.
-* Select `pip`.
-* Select `Python`.
-* Select the CUDA version supported by your system.
-* Copy and run the generated command.
+https://pytorch.org/get-started/locally/
 
-Example for a CUDA 13.2 system:
+Choose the appropriate operating system, package manager, Python version, and CUDA version for your system, then run the generated command.
 
-```bash
-python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cu132
-```
-
-Verify the installation:
+After installation, verify that PyTorch can detect the GPU:
 
 ```bash
 python - <<'PY'
@@ -94,29 +81,13 @@ PY
 
 ### 3. Install RAPIDS
 
-Install RAPIDS by following the official RAPIDS installation selector.
+Install RAPIDS using the official RAPIDS installation guide:
 
-Use the selector to choose:
+https://docs.rapids.ai/install/
 
-* Install method: `pip` or `conda`
-* CUDA version: matching your system, for example CUDA 13
-* Python version: compatible with RAPIDS
-* RAPIDS version: the latest compatible stable release
+Use the command generated for your CUDA version, Python version, and preferred installation method.
 
-For pip installs, RAPIDS packages use CUDA-specific names such as `cudf-cu13`, `cuml-cu13`, and `cugraph-cu13`.
-
-Example CUDA 13 pip command:
-
-```bash
-python -m pip install \
-    --extra-index-url=https://pypi.nvidia.com \
-    cudf-cu13 dask-cudf-cu13 cuml-cu13 cugraph-cu13 nx-cugraph-cu13 \
-    cucim-cu13 pylibraft-cu13 raft-dask-cu13 cuvs-cu13
-```
-
-If the RAPIDS selector gives exact versions, use the exact command from the selector instead of manually editing package versions.
-
-Verify the RAPIDS installation:
+After installation, verify that the main RAPIDS packages import correctly:
 
 ```bash
 python - <<'PY'
@@ -133,13 +104,13 @@ PY
 
 ### 4. Install scLEAD
 
-After PyTorch and RAPIDS are installed, install this repository in editable mode:
+After installing PyTorch and RAPIDS, install this repository in editable mode:
 
 ```bash
 python -m pip install -e .
 ```
 
-Verify that `scLEAD` imports correctly:
+Verify that the package imports correctly:
 
 ```bash
 python - <<'PY'
@@ -148,16 +119,16 @@ print("scLEAD import OK")
 PY
 ```
 
-## Notes About GPU Dependencies
+## Notes on GPU Dependencies
 
-PyTorch and RAPIDS should not be pinned blindly inside `sclead.yml` or `pyproject.toml`, because the correct installation depends on the machine.
+PyTorch and RAPIDS should be installed separately from the core Python environment because their package versions depend on the local CUDA and driver configuration.
 
 Recommended practice:
 
 * Keep general Python dependencies in `sclead.yml` and `pyproject.toml`.
-* Install PyTorch from the official PyTorch selector.
-* Install RAPIDS from the official RAPIDS selector.
-* Use `python -m pip` to avoid accidentally installing packages outside the active Conda environment.
+* Install PyTorch from the official PyTorch installation selector.
+* Install RAPIDS from the official RAPIDS installation guide.
+* Use `python -m pip` to avoid installing packages outside the active Conda environment.
 
 If installation fails with an error such as:
 
@@ -165,7 +136,7 @@ If installation fails with an error such as:
 No matching distribution found
 ```
 
-check:
+check the Python version, CUDA driver, and pip environment:
 
 ```bash
 python --version
@@ -173,19 +144,19 @@ nvidia-smi
 python -m pip --version
 ```
 
-Then regenerate the PyTorch or RAPIDS install command from the official selector using the correct Python and CUDA settings.
+Then regenerate the PyTorch or RAPIDS installation command using the official installation pages.
 
 ## Data and Outputs
 
-The repository does not bundle large training datasets, checkpoints, or generated results. The analysis scripts expect local paths for inputs and outputs.
+Large training datasets, checkpoints, and generated results are not bundled with this repository. The analysis scripts expect local paths for input data, checkpoints, and output directories.
 
-Packaged ontology metadata lives in:
+Packaged ontology metadata is included under:
 
 ```text
 src/sclead/ct_descriptions/
 ```
 
-Recommended data layout:
+The recommended data layout is:
 
 ```text
 data/
@@ -204,7 +175,7 @@ data/
    └─ ...
 ```
 
-Detailed run commands and expected file placement for each workflow are documented in:
+Detailed run commands and expected file placement for each workflow are provided in:
 
 ```text
 analyses/README.md
@@ -212,47 +183,47 @@ analyses/README.md
 
 ## Main Workflows
 
-Each workflow is exposed as a script under `analyses/` and can be inspected with `--help`.
+Each analysis workflow is available as a runnable script under `analyses/`. Use `--help` to inspect the available arguments.
 
-### Within-tissue annotation
+### Within-Tissue Annotation
 
 ```bash
 python analyses/within_tissue_annotation/run_scLEAD.py --help
 ```
 
-### Foundation-model training
+### Foundation-Model Training
 
 ```bash
 python analyses/zero_shot_annotation/train_foundation_model.py --help
 ```
 
-### Zero-shot prediction
+### Zero-Shot Prediction
 
 ```bash
 python analyses/zero_shot_annotation/run_zero_shot_prediction.py --help
 ```
 
-### Clustering analysis
+### Cell Clustering
 
 ```bash
 python analyses/cell_clustering/run_clustering_scLEAD_new.py --help
 ```
 
-## Suggested Starting Points
+## Suggested Starting Point
 
-If you are new to the codebase, use this order:
+For a new setup, use the following order:
 
-1. Create and activate the `sclead` environment.
-2. Install PyTorch from the official PyTorch selector.
-3. Install RAPIDS from the official RAPIDS selector.
-4. Install the package with `python -m pip install -e .`.
-5. Read `analyses/README.md` for the expected input layout.
-6. Run the relevant script with `--help`.
-7. Point the script to your local data, checkpoints, and output directory.
+1. Create and activate the `sclead` Conda environment.
+2. Install PyTorch using the official PyTorch installation selector.
+3. Install RAPIDS using the official RAPIDS installation guide.
+4. Install this repository with `python -m pip install -e .`.
+5. Review `analyses/README.md` for the expected data layout and workflow-specific commands.
+6. Run the relevant analysis script with `--help`.
+7. Provide local paths to the required data, checkpoints, and output directories.
 
 ## Additional Notes
 
-* The analysis scripts expect local training and evaluation datasets that are not bundled in this repository.
-* Scripts are intended to be run from the repository root.
-* Large raw data, checkpoints, and generated result folders should stay outside the source tree when possible.
-* Use `.gitignore` to exclude large generated outputs, local datasets, logs, and checkpoints.
+* Analysis scripts are intended to be run from the repository root.
+* Large raw datasets, checkpoints, logs, and generated outputs should not be committed to the repository.
+* Use `.gitignore` to exclude local datasets, intermediate files, checkpoints, logs, and generated result directories.
+* If datasets or outputs are stored outside the repository, pass absolute paths using the appropriate command-line arguments instead of editing the scripts.

@@ -1,13 +1,16 @@
 # Analyses Guide
 
-This directory contains runnable analysis workflows. The scripts now resolve repo-relative paths, so you can run them from the repository root without depending on one specific working directory.
+This directory contains runnable workflows for reproducing the main analyses. The scripts resolve paths relative to the repository, so they can be executed from the repository root without depending on a specific working directory.
 
-## Data availability and reproducibility
-Data, results and checkpoints can be accessed and downloaded through [this link](https://seafile.tinnguyen-lab.com/d/4276c944e5934d30bd4b/).
+## Data Availability and Reproducibility
+
+Data, results, and checkpoints are available through the following Seafile link:
+
+[Download data, results, and checkpoints](https://seafile.tinnguyen-lab.com/d/4276c944e5934d30bd4b/)
 
 ## Data Layout
 
-Place the data under [data](../data):
+Place all required data under the [`data`](../data) directory using the following structure:
 
 ```text
 data/
@@ -28,11 +31,29 @@ data/
 
 ## Within-Tissue Annotation
 
-Input:
-- H5AD mode: `data/<tissue>/train.h5ad` and `data/<tissue>/test.h5ad`
-- Parquet mode: `data/<tissue>/train_parquets/`, `test_parquets/`, and the mapping JSON files
+### Input
 
-Run:
+The within-tissue annotation workflow supports both H5AD and Parquet inputs.
+
+For H5AD input, each tissue directory should contain:
+
+```text
+data/<tissue>/train.h5ad
+data/<tissue>/test.h5ad
+```
+
+For Parquet input, each tissue directory should contain:
+
+```text
+data/<tissue>/train_parquets/
+data/<tissue>/test_parquets/
+data/<tissue>/train_ontology_to_int.json
+data/<tissue>/train_celltype_to_int.json
+data/<tissue>/all_ontology_to_int.json
+data/<tissue>/all_celltype_to_int.json
+```
+
+### Run H5AD Workflow
 
 ```bash
 python analyses/within_tissue_annotation/run_scLEAD.py \
@@ -41,13 +62,13 @@ python analyses/within_tissue_annotation/run_scLEAD.py \
   --save-root outputs/within_tissue_annotation
 ```
 
-Parquet runner:
+### Run Parquet Workflow
 
 ```bash
 bash analyses/within_tissue_annotation/run_scLEAD.sh
 ```
 
-Override defaults when needed:
+To override the default paths, set the corresponding environment variables:
 
 ```bash
 DATA_DIR=/path/to/parquet_tissues \
@@ -57,10 +78,16 @@ bash analyses/within_tissue_annotation/run_scLEAD.sh
 
 ## Foundation-Model Training
 
-Input:
-- One dataset folder containing `train_parquets/` and `train_ontology_to_int.json`
+### Input
 
-Run:
+The foundation-model training workflow expects one dataset directory containing:
+
+```text
+train_parquets/
+train_ontology_to_int.json
+```
+
+### Run
 
 ```bash
 python analyses/zero_shot_annotation/train_foundation_model.py \
@@ -71,11 +98,17 @@ python analyses/zero_shot_annotation/train_foundation_model.py \
 
 ## Zero-Shot Prediction
 
-Input:
-- `data/zeroshot-data/<dataset>.h5ad`
-- A checkpoint path supplied explicitly
+### Input
 
-Run:
+This workflow requires:
+
+```text
+data/zeroshot-data/<dataset>.h5ad
+```
+
+A trained checkpoint must be provided explicitly using `--ckpt-path`.
+
+### Run
 
 ```bash
 python analyses/zero_shot_annotation/run_zero_shot_prediction.py \
@@ -87,11 +120,23 @@ python analyses/zero_shot_annotation/run_zero_shot_prediction.py \
 
 ## Cell Clustering
 
-Input:
-- `data/<tissue>/test.h5ad`
-- Tissue list CSV at [data/tissue_cell_counts.csv](../data/tissue_cell_counts.csv), or pass a different one
+### Input
 
-Run:
+This workflow requires:
+
+```text
+data/<tissue>/test.h5ad
+```
+
+By default, the workflow uses the tissue list CSV at:
+
+```text
+data/tissue_cell_counts.csv
+```
+
+A different tissue list can be provided with `--tissue_csv`.
+
+### Run
 
 ```bash
 python analyses/cell_clustering/run_clustering_scLEAD_new.py \
@@ -105,6 +150,6 @@ python analyses/cell_clustering/run_clustering_scLEAD_new.py \
 
 ## Notes
 
-- `src/sclead/ct_descriptions/` contains packaged metadata and should stay in the source tree.
-- Large raw data, checkpoints, and generated result folders should stay out of `analyses/`.
-- If you keep external datasets elsewhere, pass absolute paths with `--data-dir`, `--save-dir`, `--output-dir`, or environment variables instead of editing the scripts.
+* `src/sclead/ct_descriptions/` contains packaged metadata and should remain in the source tree.
+* Large raw datasets, checkpoints, and generated result folders should not be stored under `analyses/`.
+* If datasets or outputs are stored outside the repository, provide absolute paths using `--data-dir`, `--save-dir`, `--output-dir`, or the appropriate environment variables instead of modifying the scripts.
