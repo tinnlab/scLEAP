@@ -1,6 +1,4 @@
-# scLEAP
-
-**scLEAP: single-cell annotation using Expression–Language Alignment and Poincaré geometry**
+# **scLEAP: single-cell annotation using Expression–Language Alignment and Poincaré geometry**
 
 `scLEAP` is a research codebase for single-cell annotation using expression–language alignment and Poincaré geometry, including zero-shot transfer and clustering analyses.
 
