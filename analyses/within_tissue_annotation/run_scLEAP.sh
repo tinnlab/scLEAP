@@ -12,8 +12,8 @@ if ! command -v conda &>/dev/null; then
 fi
 # shellcheck disable=SC1091
 source "$(conda info --base)/etc/profile.d/conda.sh"
-echo "Activating conda environment: sclead"
-conda activate sclead
+echo "Activating conda environment: scleap"
+conda activate scleap
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
@@ -21,7 +21,7 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 # -------------------- Config --------------------
 CSV_PATH="${CSV_PATH:-${REPO_ROOT}/data/tissue_cell_counts.csv}"
 PYTHON_BIN="${PYTHON_BIN:-python}"
-SCRIPT_PATH="${SCRIPT_PATH:-${SCRIPT_DIR}/run_scLEAD.py}"
+SCRIPT_PATH="${SCRIPT_PATH:-${SCRIPT_DIR}/run_scLEAP.py}"
 
 DATA_DIR="${DATA_DIR:-${REPO_ROOT}/data}"
 SAVE_ROOT="${SAVE_ROOT:-${REPO_ROOT}/outputs/within_tissue_annotation}"
@@ -61,7 +61,7 @@ command -v "${PYTHON_BIN}" >/dev/null 2>&1 || { echo "python not found: ${PYTHON
 [[ -d "$DATA_DIR" ]] || { echo "DATA_DIR not found: $DATA_DIR" >&2; exit 1; }
 [[ -f "$SCRIPT_PATH" ]] || { echo "SCRIPT_PATH not found: $SCRIPT_PATH" >&2; exit 1; }
 
-EXP_SAVE_ROOT="${SAVE_ROOT}/scLEAD_full_hidden${HIDDEN_DIM}_s${S}_m${M1}_${M2}_${M3}_${M4}_lct${L_CT}_ltt${L_TT}_lcon${L_CONTRASTIVE}_lgraph${L_GRAPH}"
+EXP_SAVE_ROOT="${SAVE_ROOT}/scLEAP_full_hidden${HIDDEN_DIM}_s${S}_m${M1}_${M2}_${M3}_${M4}_lct${L_CT}_ltt${L_TT}_lcon${L_CONTRASTIVE}_lgraph${L_GRAPH}"
 LOG_ROOT="${EXP_SAVE_ROOT}/logs"
 mkdir -p "$LOG_ROOT"
 

@@ -1,19 +1,21 @@
-# scLEAD
+# scLEAP
 
-`scLEAD` is a research codebase for single-cell language-guided representation learning, cell-type annotation, zero-shot transfer, and clustering analyses.
+**scLEAP: single-cell annotation using Expression–Language Alignment and Poincaré geometry**
 
-The repository contains the Python package under `src/sclead/` and runnable analysis workflows under `analyses/`.
+`scLEAP` is a research codebase for single-cell annotation using expression–language alignment and Poincaré geometry, including zero-shot transfer and clustering analyses.
+
+The repository contains the Python package under `src/scleap/` and runnable analysis workflows under `analyses/`.
 
 ## Repository Structure
 
 ```text
-scLEAD/
+scLEAP/
 ├─ analyses/
 │  ├─ within_tissue_annotation/
 │  ├─ zero_shot_annotation/
 │  └─ cell_clustering/
 ├─ data/
-├─ src/sclead/
+├─ src/scleap/
 │  ├─ model.py
 │  ├─ dataset.py
 │  ├─ dataset_gpu.py
@@ -22,30 +24,30 @@ scLEAD/
 │  ├─ utils.py
 │  └─ ct_descriptions/
 ├─ pyproject.toml
-├─ sclead.yml
+├─ scleap.yml
 └─ README.md
 ```
 
 ## Installation
 
-The recommended setup is to create the Conda environment, install GPU-specific dependencies separately, and then install `scLEAD` in editable mode.
+The recommended setup is to create the Conda environment, install GPU-specific dependencies separately, and then install `scLEAP` in editable mode.
 
-PyTorch and RAPIDS are not pinned directly in `sclead.yml` or `pyproject.toml` because the correct installation command depends on the local GPU driver, CUDA version, Python version, and platform.
+PyTorch and RAPIDS are not pinned directly in `scleap.yml` or `pyproject.toml` because the correct installation command depends on the local GPU driver, CUDA version, Python version, and platform.
 
 ### 1. Create the Conda Environment
 
 From the repository root, run:
 
 ```bash
-conda env create -f sclead.yml
-conda activate sclead
+conda env create -f scleap.yml
+conda activate scleap
 ```
 
 Alternatively, create the environment manually:
 
 ```bash
-conda create -n sclead python=3.11 -y
-conda activate sclead
+conda create -n scleap python=3.11 -y
+conda activate scleap
 conda install -c conda-forge pip -y
 ```
 
@@ -102,7 +104,12 @@ print(cudf.Series([1, 2, 3]))
 PY
 ```
 
-### 4. Install scLEAD
+### 4. Install FAISS
+```bash
+pip install faiss-gpu
+```
+
+### 5. Install scLEAP
 
 After installing PyTorch and RAPIDS, install this repository in editable mode:
 
@@ -114,8 +121,8 @@ Verify that the package imports correctly:
 
 ```bash
 python - <<'PY'
-import sclead
-print("scLEAD import OK")
+import scleap
+print("scLEAP import OK")
 PY
 ```
 
@@ -125,7 +132,7 @@ PyTorch and RAPIDS should be installed separately from the core Python environme
 
 Recommended practice:
 
-* Keep general Python dependencies in `sclead.yml` and `pyproject.toml`.
+* Keep general Python dependencies in `scleap.yml` and `pyproject.toml`.
 * Install PyTorch from the official PyTorch installation selector.
 * Install RAPIDS from the official RAPIDS installation guide.
 * Use `python -m pip` to avoid installing packages outside the active Conda environment.
@@ -153,7 +160,7 @@ Large training datasets, checkpoints, and generated results are not bundled with
 Packaged ontology metadata is included under:
 
 ```text
-src/sclead/ct_descriptions/
+src/scleap/ct_descriptions/
 ```
 
 The recommended data layout is:
@@ -188,7 +195,7 @@ Each analysis workflow is available as a runnable script under `analyses/`. Use 
 ### Within-Tissue Annotation
 
 ```bash
-python analyses/within_tissue_annotation/run_scLEAD.py --help
+python analyses/within_tissue_annotation/run_scLEAP.py --help
 ```
 
 ### Foundation-Model Training
@@ -206,14 +213,14 @@ python analyses/zero_shot_annotation/run_zero_shot_prediction.py --help
 ### Cell Clustering
 
 ```bash
-python analyses/cell_clustering/run_clustering_scLEAD_new.py --help
+python analyses/cell_clustering/run_clustering_scLEAP_new.py --help
 ```
 
 ## Suggested Starting Point
 
 For a new setup, use the following order:
 
-1. Create and activate the `sclead` Conda environment.
+1. Create and activate the `scleap` Conda environment.
 2. Install PyTorch using the official PyTorch installation selector.
 3. Install RAPIDS using the official RAPIDS installation guide.
 4. Install this repository with `python -m pip install -e .`.

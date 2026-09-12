@@ -18,7 +18,7 @@ from sklearn.metrics import classification_report
 from sklearn.neighbors import KNeighborsClassifier
 from tqdm import tqdm
 
-from sclead.model import TrainWrapperCLIPStyle
+from scleap.model import TrainWrapperCLIPStyle
 
 os.environ["OMP_NUM_THREADS"] = "1"
 os.environ["OPENBLAS_NUM_THREADS"] = "1"
@@ -41,7 +41,7 @@ def resolve_repo_path(path_str: str) -> Path:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run zero-shot prediction on one or more H5AD datasets.")
-    parser.add_argument("--ckpt-path", required=True, help="Path to a scLEAD checkpoint.")
+    parser.add_argument("--ckpt-path", required=True, help="Path to a scLEAP checkpoint.")
     parser.add_argument("--datasets", nargs="+", required=True, help="Dataset basenames without .h5ad.")
     parser.add_argument("--data-dir", default=str(DEFAULT_INPUT_DIR), help="Directory containing <dataset>.h5ad files.")
     parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR), help="Directory for per-dataset outputs.")

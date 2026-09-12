@@ -546,11 +546,11 @@ def get_semantics_labels(train_label_dict, ols_mappings=None):
     return semantics_labels
 
 def load_cell_types_info() -> dict:
-    path = files("sclead.ct_descriptions") / "cell_types_info.json"
+    path = files("scleap.ct_descriptions") / "cell_types_info.json"
     with path.open("r", encoding="utf-8") as f:
         return json.load(f)
 
 def load_cell_types_mapping() -> dict:
-    path = files("sclead.ct_descriptions") / "cell_name_to_ols_id.json"
+    path = files("scleap.ct_descriptions") / "cell_name_to_ols_id.json"
     with path.open("r", encoding="utf-8") as f:
         return json.load(f)

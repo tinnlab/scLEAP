@@ -1,7 +1,7 @@
 #%%
 #%%
 """
-Ablation / evaluation pipeline for scLEAD (CLIP-style single-cell model)
+Ablation / evaluation pipeline for scLEAP (CLIP-style single-cell model)
 ------------------------------------------------------------------------
 - Robust CLI with sensible defaults
 - Clear separation of concerns
@@ -48,18 +48,18 @@ import faiss  # type: ignore
 
 # Project-local deps (must be available on PYTHONPATH)
 # from model_v1 import TrainWrapperCLIPStyle
-from sclead.model import TrainWrapperCLIPStyle
+from scleap.model import TrainWrapperCLIPStyle
 
-from sclead.dataset import H5ADDataset, LOG1PTransform, TotalSumNormalize
-from sclead.dataset_gpu import H5ADDatasetGPU
-from sclead.gpu_parquet_dataset import build_loader
+from scleap.dataset import H5ADDataset, LOG1PTransform, TotalSumNormalize
+from scleap.dataset_gpu import H5ADDatasetGPU
+from scleap.gpu_parquet_dataset import build_loader
 
-from sclead.utils import predict_with_distance_weights, load_cell_types_info, load_cell_types_mapping
+from scleap.utils import predict_with_distance_weights, load_cell_types_info, load_cell_types_mapping
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_GRAPH_EMB_NPZ = str(REPO_ROOT / "data" / "graph_embeddings" / "cl_poincare_embeddings.npz")
-DEFAULT_OLS_MAPPINGS = str(REPO_ROOT / "src" / "sclead" / "ct_descriptions" / "cell_name_to_ols_id.json")
-DEFAULT_CT_DESCRIPTIONS = str(REPO_ROOT / "src" / "sclead" / "ct_descriptions" / "cell_types_info.json")
+DEFAULT_OLS_MAPPINGS = str(REPO_ROOT / "src" / "scleap" / "ct_descriptions" / "cell_name_to_ols_id.json")
+DEFAULT_CT_DESCRIPTIONS = str(REPO_ROOT / "src" / "scleap" / "ct_descriptions" / "cell_types_info.json")
 # ----------------------------
 # Utilities & Config
 # ----------------------------
@@ -977,7 +977,7 @@ def job_fn(tissue: str, args: Args) -> None:
     try:
         run_tissue(tissue, args)
     except Exception as e:
-        log_file = f"{args.save_root}/run_scLEAD.log"
+        log_file = f"{args.save_root}/run_scLEAP.log"
         with open(log_file, "a") as f:
             f.write(f"Failed {tissue}: {e}\n")
         print(f"Failed {tissue}: {e}")
@@ -994,7 +994,7 @@ def run_all(args: Args) -> None:
     # Build a unique save root w/ hyperparams if the default is used
     
     # args.save_root = (
-    #     f"{args.save_root}/scLEAD_full_hidden{args.hidden_dim}_s{args.s}_m{args.m1}_{args.m2}_{args.m3}"
+    #     f"{args.save_root}/scLEAP_full_hidden{args.hidden_dim}_s{args.s}_m{args.m1}_{args.m2}_{args.m3}"
     # )
 
     def tissue_has_data(tissue: str) -> bool:
@@ -1067,7 +1067,7 @@ def run_all(args: Args) -> None:
 # ----------------------------
 
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(description="scLEAD ablation/eval pipeline")
+    p = argparse.ArgumentParser(description="scLEAP ablation/eval pipeline")
 
     # Data
     p.add_argument("--data-dir", required=True, help="Root directory of tissue subfolders")
@@ -1195,7 +1195,7 @@ if __name__ == "__main__":
 
 
 ## using parquet data
-python analyses/within_tissue_annotation/run_scLEAD.py --data-dir "data" \
+python analyses/within_tissue_annotation/run_scLEAP.py --data-dir "data" \
     --save-root "./results" \
     --use-parquet \
     --cuda-visible 7 \
@@ -1206,7 +1206,7 @@ python analyses/within_tissue_annotation/run_scLEAD.py --data-dir "data" \
     --tissues "colon"
 
 ## use h5ad
-python analyses/within_tissue_annotation/run_scLEAD.py --data-dir "data" \
+python analyses/within_tissue_annotation/run_scLEAP.py --data-dir "data" \
     --tissues "left_lung" \
     --cuda-visible 3 \
     --gpu-id 3 \

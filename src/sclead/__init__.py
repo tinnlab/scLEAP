@@ -1,2 +1,0 @@
-"""sclead package."""
-

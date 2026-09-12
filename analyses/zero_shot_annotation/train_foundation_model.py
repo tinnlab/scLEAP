@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Train a single scLEAD (CLIP-style) model on one parquet dataset folder.
+Train a single scLEAP (CLIP-style) model on one parquet dataset folder.
 
 Expected folder structure (one dataset):
   DATA_DIR/
@@ -59,12 +59,12 @@ import pytorch_lightning as pl
 import torch
 
 # Project-local deps
-from sclead.model import TrainWrapperCLIPStyle
-from sclead.gpu_parquet_dataset import build_loader
-from sclead.utils import load_cell_types_info, load_cell_types_mapping
+from scleap.model import TrainWrapperCLIPStyle
+from scleap.gpu_parquet_dataset import build_loader
+from scleap.utils import load_cell_types_info, load_cell_types_mapping
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_CT_DESCRIPTIONS = str(REPO_ROOT / "src" / "sclead" / "ct_descriptions" / "cell_types_info.json")
+DEFAULT_CT_DESCRIPTIONS = str(REPO_ROOT / "src" / "scleap" / "ct_descriptions" / "cell_types_info.json")
 
 
 # ----------------------------
@@ -486,7 +486,7 @@ def main(args: Args) -> None:
 # CLI
 # ----------------------------
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser("Train scLEAD on a single parquet dataset folder")
+    p = argparse.ArgumentParser("Train scLEAP on a single parquet dataset folder")
 
     p.add_argument("--data-dir", required=True, help="Dataset folder containing train_parquets/ and train_ontology_to_int.json")
     p.add_argument("--save-dir", required=True, help="Output folder for checkpoints + run_info.json")

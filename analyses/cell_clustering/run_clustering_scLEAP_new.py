@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-scLEAD embedding + clustering benchmark (Scanpy-style), per tissue.
+scLEAP embedding + clustering benchmark (Scanpy-style), per tissue.
 
 What this script does
 ---------------------
@@ -63,7 +63,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import torch
 
 # Your project-local model
-from sclead.model import TrainWrapperCLIPStyle
+from scleap.model import TrainWrapperCLIPStyle
 
 try:
     from umap import UMAP  # optional
@@ -420,7 +420,7 @@ def run_one_tissue(
 
         with open(results_txt, "w") as f:
             f.write(f"Tissue: {tissue}\n")
-            f.write("Method: scLEAD_checkpoint_embeddings+Leiden\n")
+            f.write("Method: scLEAP_checkpoint_embeddings+Leiden\n")
             f.write(f"ckpt_path: {os.path.abspath(str(args_ckpt_path_placeholder))}\n")  # replaced in main()
             f.write(f"Leiden_backend: {backend}\n")
             f.write(f"n_neighbors: {n_neighbors}\n")
@@ -451,7 +451,7 @@ def run_one_tissue(
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Per-tissue scLEAD checkpoint embeddings -> Leiden(+merge) clustering benchmark.")
+    ap = argparse.ArgumentParser(description="Per-tissue scLEAP checkpoint embeddings -> Leiden(+merge) clustering benchmark.")
     ap.add_argument("--ckpt_path", type=str, required=True, help="Checkpoint path for TrainWrapperCLIPStyle")
     ap.add_argument("--data_dir", type=str, required=True, help="Directory containing <tissue>/test.h5ad")
     ap.add_argument("--result_dir", type=str, required=True, help="Output directory (per-tissue subfolders)")
@@ -578,7 +578,7 @@ if __name__ == "__main__":
 """
 Example:
 
-CUDA_VISIBLE_DEVICES=7 python run_clustering_scLEAD_new.py \
+CUDA_VISIBLE_DEVICES=7 python run_clustering_scLEAP_new.py \
   --ckpt_path ../checkpoint.ckpt \
   --data_dir data \
   --result_dir ./clustering_results \

@@ -56,7 +56,7 @@ data/<tissue>/all_celltype_to_int.json
 ### Run H5AD Workflow
 
 ```bash
-python analyses/within_tissue_annotation/run_scLEAD.py \
+python analyses/within_tissue_annotation/run_scLEAP.py \
   --data-dir data \
   --tissues left_lung \
   --save-root outputs/within_tissue_annotation
@@ -65,7 +65,7 @@ python analyses/within_tissue_annotation/run_scLEAD.py \
 ### Run Parquet Workflow
 
 ```bash
-bash analyses/within_tissue_annotation/run_scLEAD.sh
+bash analyses/within_tissue_annotation/run_scLEAP.sh
 ```
 
 To override the default paths, set the corresponding environment variables:
@@ -73,7 +73,7 @@ To override the default paths, set the corresponding environment variables:
 ```bash
 DATA_DIR=/path/to/parquet_tissues \
 SAVE_ROOT=outputs/within_tissue_annotation \
-bash analyses/within_tissue_annotation/run_scLEAD.sh
+bash analyses/within_tissue_annotation/run_scLEAP.sh
 ```
 
 ## Foundation-Model Training
@@ -139,7 +139,7 @@ A different tissue list can be provided with `--tissue_csv`.
 ### Run
 
 ```bash
-python analyses/cell_clustering/run_clustering_scLEAD_new.py \
+python analyses/cell_clustering/run_clustering_scLEAP_new.py \
   --ckpt_path outputs/foundation_model/best.ckpt \
   --data_dir data \
   --result_dir outputs/cell_clustering \
@@ -150,6 +150,6 @@ python analyses/cell_clustering/run_clustering_scLEAD_new.py \
 
 ## Notes
 
-* `src/sclead/ct_descriptions/` contains packaged metadata and should remain in the source tree.
+* `src/scleap/ct_descriptions/` contains packaged metadata and should remain in the source tree.
 * Large raw datasets, checkpoints, and generated result folders should not be stored under `analyses/`.
 * If datasets or outputs are stored outside the repository, provide absolute paths using `--data-dir`, `--save-dir`, `--output-dir`, or the appropriate environment variables instead of modifying the scripts.

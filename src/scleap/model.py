@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import pytorch_lightning as pl
-from sclead.loss import LabelAwareMarginLoss, RepelContrastiveLoss, PermutedContrastiveLoss, GraphLoss
+from scleap.loss import LabelAwareMarginLoss, RepelContrastiveLoss, PermutedContrastiveLoss, GraphLoss
 
 from typing import List, Dict
 import os
