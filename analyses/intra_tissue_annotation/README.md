@@ -1,6 +1,6 @@
-# Within-Tissue Annotation
+# Intra-Tissue Annotation
 
-This directory contains the main scLEAP training and evaluation workflow for within-tissue annotation experiments.
+This directory contains the main scLEAP training and evaluation workflow for intra-tissue annotation experiments.
 
 ## Installation
 
@@ -15,7 +15,7 @@ If you want the full GPU research environment, use `scleap.yml`.
 ## Entry Point
 
 ```bash
-python analyses/within_tissue_annotation/run_scLEAP.py --help
+python analyses/intra_tissue_annotation/run_scLEAP.py --help
 ```
 
 The script supports both H5AD- and parquet-based datasets and uses the packaged ontology metadata in `src/scleap/ct_descriptions/`.

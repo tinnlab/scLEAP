@@ -29,11 +29,11 @@ data/
    └─ ...
 ```
 
-## Within-Tissue Annotation
+## Intra-Tissue Annotation
 
 ### Input
 
-The within-tissue annotation workflow supports both H5AD and Parquet inputs.
+The intra-tissue annotation workflow supports both H5AD and Parquet inputs.
 
 For H5AD input, each tissue directory should contain:
 
@@ -56,24 +56,24 @@ data/<tissue>/all_celltype_to_int.json
 ### Run H5AD Workflow
 
 ```bash
-python analyses/within_tissue_annotation/run_scLEAP.py \
+python analyses/intra_tissue_annotation/run_scLEAP.py \
   --data-dir data \
   --tissues left_lung \
-  --save-root outputs/within_tissue_annotation
+  --save-root outputs/intra_tissue_annotation
 ```
 
 ### Run Parquet Workflow
 
 ```bash
-bash analyses/within_tissue_annotation/run_scLEAP.sh
+bash analyses/intra_tissue_annotation/run_scLEAP.sh
 ```
 
 To override the default paths, set the corresponding environment variables:
 
 ```bash
 DATA_DIR=/path/to/parquet_tissues \
-SAVE_ROOT=outputs/within_tissue_annotation \
-bash analyses/within_tissue_annotation/run_scLEAP.sh
+SAVE_ROOT=outputs/intra_tissue_annotation \
+bash analyses/intra_tissue_annotation/run_scLEAP.sh
 ```
 
 ## Foundation-Model Training

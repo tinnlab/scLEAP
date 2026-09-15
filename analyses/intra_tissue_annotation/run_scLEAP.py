@@ -1195,7 +1195,7 @@ if __name__ == "__main__":
 
 
 ## using parquet data
-python analyses/within_tissue_annotation/run_scLEAP.py --data-dir "data" \
+python analyses/intra_tissue_annotation/run_scLEAP.py --data-dir "data" \
     --save-root "./results" \
     --use-parquet \
     --cuda-visible 7 \
@@ -1206,7 +1206,7 @@ python analyses/within_tissue_annotation/run_scLEAP.py --data-dir "data" \
     --tissues "colon"
 
 ## use h5ad
-python analyses/within_tissue_annotation/run_scLEAP.py --data-dir "data" \
+python analyses/intra_tissue_annotation/run_scLEAP.py --data-dir "data" \
     --tissues "left_lung" \
     --cuda-visible 3 \
     --gpu-id 3 \

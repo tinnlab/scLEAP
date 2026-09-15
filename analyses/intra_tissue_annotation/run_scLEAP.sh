@@ -24,7 +24,7 @@ PYTHON_BIN="${PYTHON_BIN:-python}"
 SCRIPT_PATH="${SCRIPT_PATH:-${SCRIPT_DIR}/run_scLEAP.py}"
 
 DATA_DIR="${DATA_DIR:-${REPO_ROOT}/data}"
-SAVE_ROOT="${SAVE_ROOT:-${REPO_ROOT}/outputs/within_tissue_annotation}"
+SAVE_ROOT="${SAVE_ROOT:-${REPO_ROOT}/outputs/intra_tissue_annotation}"
 
 GPU_ID="${GPU_ID:-4}"
 MAX_EPOCH="${MAX_EPOCH:-200}"

@@ -9,7 +9,7 @@ The repository contains the Python package under `src/scleap/` and runnable anal
 ```text
 scLEAP/
 ├─ analyses/
-│  ├─ within_tissue_annotation/
+│  ├─ intra_tissue_annotation/
 │  ├─ zero_shot_annotation/
 │  └─ cell_clustering/
 ├─ data/
@@ -190,10 +190,10 @@ analyses/README.md
 
 Each analysis workflow is available as a runnable script under `analyses/`. Use `--help` to inspect the available arguments.
 
-### Within-Tissue Annotation
+### Intra-Tissue Annotation
 
 ```bash
-python analyses/within_tissue_annotation/run_scLEAP.py --help
+python analyses/intra_tissue_annotation/run_scLEAP.py --help
 ```
 
 ### Foundation-Model Training
