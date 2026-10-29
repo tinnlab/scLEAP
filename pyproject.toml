@@ -28,3 +28,4 @@ packages = ["scleap"]
 # add this section
 [tool.setuptools.package-data]
 scleap = ["ct_descriptions/*.json"]
+

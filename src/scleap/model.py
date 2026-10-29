@@ -456,3 +456,4 @@ def process_new_celltypes(model, cell_types, label_prompts = None, cache_path=".
 		os.remove(model.text_encoder_wrapper.cache_path)
 	model.prompt_layer10_cache = {}
 	model.setup()
+

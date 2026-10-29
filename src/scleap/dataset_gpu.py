@@ -156,3 +156,4 @@ class H5ADDatasetGPU(Dataset):
 
     def get_index_to_label_mapping(self):
         return self.index_to_label
+
